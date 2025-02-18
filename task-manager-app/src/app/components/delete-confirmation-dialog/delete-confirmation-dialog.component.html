@@ -1,0 +1,12 @@
+<div class="dialog-header">
+    <mat-icon color="warn">warning</mat-icon>
+    <h2 mat-dialog-title>Are you sure ?</h2>
+</div>
+
+<div *ngIf="actionType === 'task'">
+    <p class="confirmation-message">Are you sure you want to delete task <strong>{{ data.title }}</strong> ?  You can't undo this action.</p>
+</div>
+<div class="dialog-buttons">
+    <button mat-button color="warn" class="confirm-button" (click)="onConfirmDelete()">Yes, Delete</button>
+    <button mat-button class="cancel-button" (click)="onCancel()">Cancel</button>
+</div>

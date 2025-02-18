@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <span class="header-title"><mat-icon>assignment</mat-icon>
+  </span>
+
+  <span class="spacer"></span>
+<span *ngIf="userEmail" class="flex items-center mr-4 text-white-700 text-sm">
+  <mat-icon class="mr-2 text-white-500">account_circle</mat-icon>
+  {{ userEmail }}
+</span>
+  <button mat-button *ngIf="isLoggedIn(); else loginButton" [routerLink]="['/login']" (click)="logout()">
+    Logout
+  </button>
+  <ng-template #loginButton>
+    <button mat-button [routerLink]="['/login']">Login</button>
+  </ng-template>
+  <button mat-button *ngIf="!isLoggedIn()" [routerLink]="['/register']">Register</button>
+</mat-toolbar>

@@ -1,0 +1,65 @@
+/* Remove unnecessary scrolling */
+:host {
+  display: block;
+  width: 100%;
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+/* Dialog header styling */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.warning-icon {
+  font-size: 48px;
+  margin-right: 10px;
+}
+
+.confirmation-message {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 0 10px; /* Add padding to avoid text touching the edges */
+}
+
+/* Buttons take equal space and share 50% width each */
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Space between the buttons */
+  padding: 0 20px; /* Add padding to align the buttons better */
+  margin-bottom: 20px;
+}
+
+.confirm-button, .cancel-button {
+  flex: 1;
+  height: 40px; /* Make the buttons larger for better UI */
+  margin: 0 5px; /* Add margin between buttons */
+  font-size: 14px; /* Adjust font size for readability */
+}
+
+.confirm-button {
+  background-color: #f44336; /* Red for delete */
+  color: white;
+}
+
+.cancel-button {
+  background-color: #9e9e9e; /* Gray for cancel */
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.cancel-button:hover {
+  background-color: #757575; /* Darker gray on hover */
+}
+
+/* Remove any unnecessary modal overflow */
+.mat-dialog-content {
+  overflow: hidden !important;
+}

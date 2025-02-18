@@ -1,0 +1,64 @@
+<div class="register-container flex justify-center items-center min-h-screen bg-gray-100">
+  <mat-card class="register-card p-8 max-w-md w-full shadow-lg rounded-lg bg-white">
+    <mat-card-title class="text-2xl font-semibold text-center mb-4">Register</mat-card-title>
+
+    <div *ngIf="errorMessage" class="error-message text-red-600 text-sm mb-4 text-center p-2 bg-red-100 border border-red-400 rounded-md">
+      {{ errorMessage }}
+    </div>
+    
+    <hr class="border-t border-gray-300 mb-4" />
+
+    <form class="register-form space-y-6">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Full Name</mat-label>
+        <input matInput type="text"
+        name="fullName"
+               placeholder="Enter full name"
+               [(ngModel)]="userRegistrationRequest.name"
+               name="fullName"
+               required
+               class="border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none p-2 w-full rounded-md">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput type="email"
+               placeholder="Enter your email"
+               [(ngModel)]="userRegistrationRequest.email"
+               name="email"
+               required
+               class="border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none p-2 w-full rounded-md">
+      </mat-form-field>
+
+      <div class="example-container">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input matInput 
+        name="password"
+               [type]="hide ? 'password' : 'text'"
+               placeholder="Enter password"
+               [(ngModel)]="userRegistrationRequest.password"
+               required>
+        <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
+          {{ hide ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+      </mat-form-field>
+</div>
+      <button mat-raised-button color="primary"
+              type="submit"
+              class="register-button w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none disabled:bg-gray-400"
+              (click)="register()"
+              [disabled]="!userRegistrationRequest.name || !userRegistrationRequest.email || !userRegistrationRequest.password">
+        Register
+      </button>
+    </form>
+
+    <mat-card-content class="mt-4 text-center">
+      <p class="text-sm text-gray-600">Already have an account? 
+        <button mat-button (click)="login()" class="text-blue-500 hover:underline">
+          Login
+        </button>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,22 @@
+# Node.js / Angular
+node_modules/
+dist/
+tmp/
+.vscode/
+*.log
+package-lock.json
+angular-*.json
+
+# .NET
+bin/
+obj/
+wwwroot/
+*.db
+*.bak
+
+# Mac OS
+.DS_Store
+
+# IDE settings
+.idea/
+.vscode/

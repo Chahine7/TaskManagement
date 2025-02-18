@@ -1,0 +1,52 @@
+<div class="login-container flex justify-center items-center min-h-screen bg-gray-100">
+  <mat-card class="login-card p-8 max-w-md w-full shadow-lg rounded-lg bg-white">
+    <mat-card-title class="text-2xl font-semibold text-center mb-4">Login</mat-card-title>
+
+    <div *ngIf="errorMessage" class="error-message text-red-600 text-sm mb-4 text-center p-2 bg-red-100 border border-red-400 rounded-md">
+      {{ errorMessage }}
+    </div>
+    <hr class="border-t border-gray-300 mb-4" />
+    <div class="login-form space-y-6">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput
+               type="email"
+               name="email"
+               placeholder="Enter your email"
+               [(ngModel)]="authenticationRequest.email"
+               required
+               class="border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none p-2 w-full rounded-md">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input matInput 
+        name="password"
+               [type]="hide ? 'password' : 'text'"
+               placeholder="Enter password"
+               [(ngModel)]="authenticationRequest.password"
+               required>
+        <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
+          {{ hide ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="login()"
+              [disabled]="!authenticationRequest.email || !authenticationRequest.password"
+              class="login-button w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none disabled:bg-gray-400">
+        Login
+      </button>
+    </div>
+
+    <mat-card-content class="mt-4 text-center">
+      <p class="text-sm text-gray-600">Don't have an account? 
+        <button mat-button (click)="register()" class="text-blue-500 hover:underline">
+          Register
+        </button>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

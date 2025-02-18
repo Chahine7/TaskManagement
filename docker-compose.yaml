@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     container_name: postgres
@@ -14,8 +16,38 @@ services:
     networks:
       - db
     restart: unless-stopped
+
+  web:
+    container_name: taskmanagementapi
+    build:
+      context: ./TaskManagementApi
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:5259
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=TaskManagementDb
+      - DB_USER=utss
+      - DB_PASSWORD=AaBbCc12345@
+    ports:
+      - "5259:5259"
+    depends_on:
+      - db
+    networks:
+      - db
+    restart: unless-stopped
+  frontend:
+    container_name: task_management
+    build:
+      context: ./task-manager-app
+    ports:
+      - "4200:4000"
+    depends_on:
+      - web
+    restart: unless-stopped
 networks:
   db:
     driver: bridge
+
 volumes:
   db:

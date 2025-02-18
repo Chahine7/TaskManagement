@@ -10,7 +10,9 @@ import { TaskService } from '../../services/task.service';
 interface DialogData {
   actionType: string;
   id: number;
-  title: string
+  title: string;
+  onDelete?: () => void; 
+
 }
 
 @Component({
@@ -43,12 +45,16 @@ export class DeleteConfirmationDialogComponent implements OnDestroy{
 
   onConfirmDelete(): void {
     let deleteSub: Subscription;
-
+  
     switch (this.actionType) {
       case 'task':
         deleteSub = this.taskService.deleteTaskById(this.id).subscribe({
           next: () => {
-            this.dialogRef.close(true),
+            if (this.data.onDelete) {
+              this.data.onDelete();
+            }
+            
+            this.dialogRef.close(true);
             this.snackBar.open('Task deleted successfully', 'Close', { duration: 3000 });
           },
           error: (err) => {
@@ -62,10 +68,10 @@ export class DeleteConfirmationDialogComponent implements OnDestroy{
         this.dialogRef.close(false);
         return;
     }
-
+  
     this.subscriptions.add(deleteSub);
   }
-
+  
   onCancel(): void {
     this.dialogRef.close(false);
   }

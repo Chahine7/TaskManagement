@@ -11,6 +11,7 @@ import { TaskTableComponent } from "../task-table/task-table.component";
 import { TaskService } from '../../services/task.service';
 import { MatButtonModule } from '@angular/material/button';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { TaskCommunicationService } from '../../services/task-communication.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,7 +27,6 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 export class HomeComponent implements OnInit, OnDestroy {
 
 
-
   tasks: TaskDTO[] = [];
   searchQuery: any;
   errorMessage: string = '';
@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
               private router: Router,
+              private taskCommunicationService: TaskCommunicationService,
+
               private taskService: TaskService) {
   }
 
@@ -74,11 +76,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '400px',
-      data: { actionType: 'task', id: task.id, title: task.title },
+      data: { actionType: 'task', id: task.id, title: task.title, onDelete: () => {
+        this.tasks = this.tasks.filter(t => t.id !== task.id);
+      } },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.taskCommunicationService.emitTaskDeleted();
         this.getAllTasks();
       } else {
       }

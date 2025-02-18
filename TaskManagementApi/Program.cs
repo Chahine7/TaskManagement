@@ -17,6 +17,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 
+var dbHost = builder.Configuration["DB_HOST"] ?? "localhost";
+
+// Build the connection string dynamically
+var connectionString = $"Host={dbHost};Port=5432;Database=TaskManagementDb;Username=utss;Password=AaBbCc12345@";
 
 builder.Services.AddDbContext<TaskManagementDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
